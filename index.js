@@ -26,7 +26,7 @@ function showQuestion(index) {
 
   document.getElementById("question").innerHTML = q.questions
   document.getElementById("answers").innerHTML = q.answer
-    .map((answer, i) => `<button type="button" id="btn"  onclick="getAnotherQuestion(${index}); CorrectOrNot(${q.correct},${i}, ${index})">${answer}</button>`).join("")
+    .map((answer, i) => `<button type="button" id="btn${index}-${i}"  onclick="ChangeColor(${i}, ${q.correct},${index}); setTimeout(() =>getAnotherQuestion(${index}), 500); CorrectOrNot(${q.correct},${i}, ${index}); ">${answer}</button>`).join("")
 }
 
 function getRandomNum(max){
@@ -53,6 +53,15 @@ function CorrectOrNot(answer, i, index){
     score.innerHTML = `Score: ${scorenum}`
 }
 
+function ChangeColor(answer, crtanswer,index){
+    if (answer === crtanswer){
+        document.getElementById(`btn${index}-${crtanswer}`).style.backgroundColor = "Green"
+    }else{
+        document.getElementById(`btn${index}-${answer}`).style.backgroundColor = "Red"
+    }
+    console.log(answer,crtanswer,index)
+
+}
 function getAnotherQuestion(index){
     const next = index + 1
     if (next <= questions.length - 1){
